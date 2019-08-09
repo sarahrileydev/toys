@@ -1,0 +1,38 @@
+import React from "react";
+import ReactDOM from "react-dom";
+
+import "./styles.css";
+
+class App extends React.Component {
+  state = {
+    counter: 0
+  };
+
+  countUp = () => {
+    this.setState({
+      counter: this.state.counter + 1
+    });
+  };
+
+  countDown = () => {
+    this.setState({
+      counter: this.state.counter - 1
+    });
+  };
+
+  render() {
+    return (
+      <div className="App">
+        <h1>Welcome to My Counter!</h1>
+        <div className="counter">{this.state.counter}</div>
+        <div className="buttons">
+          <button onClick={this.countUp}>+</button>
+          <button onClick={this.countDown}>-</button>
+        </div>
+      </div>
+    );
+  }
+}
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
