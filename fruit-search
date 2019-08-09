@@ -1,0 +1,39 @@
+import React from "react";
+import ReactDOM from "react-dom";
+
+import "./styles.css";
+
+class App extends React.Component {
+  state = {
+    search: "",
+    data: ["apples", "banana", "strawberry", "blueberry", "pineapple"]
+  };
+
+  handleChanges = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  render() {
+    const filteredFruits = this.state.data.filter(fruit =>
+      fruit.includes(this.state.search)
+    );
+    return (
+      <div className="App">
+        <h1>Fruit Search</h1>
+        <input
+          name="search"
+          value={this.state.search}
+          onChange={this.handleChanges}
+        />
+        <ul>
+          {filteredFruits.map(fruits => (
+            <li>{fruits}</li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+}
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
