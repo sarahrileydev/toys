@@ -1,0 +1,45 @@
+import React from "react";
+import ReactDOM from "react-dom";
+
+import "./styles.css";
+
+class App extends React.Component {
+  state = {
+    data: ["bananas", "apples", "oranges", "grapes"],
+    itemClicked: new Set()
+  };
+
+  handleClick(fruit) {
+    const itemClicked = this.state.itemClicked; //copy of state
+
+    if (itemClicked.has(fruit)) {
+      itemClicked.delete(fruit); //delte fruit in itemClicked
+      this.setState({ itemClicked: itemClicked }); //give me the rest back
+    } else {
+      this.setState({ itemClicked: new Set([...itemClicked, fruit]) });
+    }
+  }
+
+  render() {
+    console.log(this.state.itemClicked);
+    return (
+      <div className="App">
+        <h1>Hello Fruits!</h1>
+        <div className="container">
+          {this.state.data.map(fruit => (
+            <p
+              className={this.state.itemClicked.has(fruit) ? "bold" : ""}
+              key={fruit}
+              onClick={() => this.handleClick(fruit)}
+            >
+              {fruit}
+            </p>
+          ))}
+        </div>
+      </div>
+    );
+  }
+}
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
