@@ -1,0 +1,53 @@
+import React from "react";
+import ReactDOM from "react-dom";
+
+import "./styles.css";
+
+class App extends React.Component {
+  state = {
+    fruits: ["apple", "banana", "pineapple", "grapefruit", "peach", "apricot"],
+    term: ""
+  };
+
+  handleInputChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  render() {
+    const filteredFruits = this.state.fruits.filter(fruit =>
+      fruit.includes(this.state.term)
+    );
+
+    let autoComplete;
+    if (this.state.term === "") {
+      autoComplete = <div />;
+    } else {
+      autoComplete = (
+        <ul>
+          {filteredFruits.map(fruit => (
+            <li>{fruit}</li>
+          ))}
+        </ul>
+      );
+    }
+    return (
+      <div className="App">
+        <h1>Welcome to fruit search!</h1>
+        <form>
+          <input
+            autoComplete="off"
+            type="text"
+            //name has to match the name on state
+            name="term"
+            value={this.state.term}
+            onChange={this.handleInputChange}
+          />
+          {autoComplete}
+        </form>
+      </div>
+    );
+  }
+}
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
